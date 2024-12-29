@@ -1,9 +1,13 @@
-import { View, Text, SafeAreaView, } from 'react-native';
-import React from 'react';
+
 import Routes from './src/navigation/Routes';
+import { ArtistProvider } from './src/context/ArtistContext';
 
 const App = () => {
-  return <Routes/>;
-}
+  return (
+    <ArtistProvider>
+      <Routes />
+    </ArtistProvider>
+  );
+};
 export default App;
 

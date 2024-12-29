@@ -1,18 +1,21 @@
-import { ScrollView, StyleSheet, Text, View, Image, Pressable } from 'react-native'
-import React from 'react'
+import { ScrollView, StyleSheet, Text, View, Image, Pressable } from 'react-native';
+import React, { useContext } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Loader from '../components/Loader';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Fontisto from 'react-native-vector-icons/Fontisto'; // Fontisto için
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'; // MaterialIcons için
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { ArtistContext } from '../context/ArtistContext';
+import ArtistCard from '../components/ArtistCard';
+
 
 
 const HomeScreen = () => {
-  <Loader/>
+  const { artists, loading, error } = useContext(ArtistContext);
+  
     return (
         <LinearGradient colors={['#040306', '#131624']} style={{ flex: 1 }}>
-                <ScrollView
+          {/*<Loader /> */}
+        <ScrollView
                     style={{ marginTop: 50 }}
                     contentContainerStyle={{ paddingBottom: 100 }}>
                     <View style={styles.header}>
@@ -23,7 +26,7 @@ const HomeScreen = () => {
                                 }}
                                 style={styles.headerImage}
                             />
-                            <Text style={styles.headerText}>Udemig</Text>
+                            <Text style={styles.headerText}>message</Text>
                        </View>
                      <MaterialCommunityIcons
                         name="lightning-bolt-outline"
@@ -32,70 +35,66 @@ const HomeScreen = () => {
                      />
                 </View>
 
-                {/* Tabbutons */}
+          {/* Tabbutons */}
+                
                 <View style={styles.tabButtons}>
+                <Pressable
+                 style={({ pressed }) => [
+                 styles.tabButtonAll,
+                 { backgroundColor: pressed ? '#4CAF50' : '#1AD35E' },
+                ]}
+               >
+             <Text style={styles.tabButtonText}> All </Text>
+                    </Pressable>
                     <Pressable style={styles.tabButton}>
-                        <Text  style={styles.tabButtonText}>Music</Text>
+                        <Text style={styles.tabButtonText}>Music</Text>
                     </Pressable>
                     <Pressable style={styles.tabButton}>
                         <Text style={styles.tabButtonText}>Podcast & Shows</Text>
                     </Pressable>
                 </View>
-
-                
-
-                <View>
-                <Pressable
+                {/********/}
+           <View>
+            <Pressable
            onPress={()=>navigation.navigate("Songs")}
             style={styles.likedSongs}>
-              <LinearGradient style={{borderRadius: 5,}} colors={['#33006F', '#c7d6cc']}>
+              <LinearGradient style={{borderRadius: 30,}} colors={['#031850', '#1AD35E']}>
                 <Pressable
-                  style={{
-                    width: 55,
-                    height: 55,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: 40,
-                  }}>
-                  <AntDesign name="heart" color="white" size={24} />
+                 style={styles.image}>
+                  <AntDesign name="heart" color="white" size={22} />
                 </Pressable>
               </LinearGradient>
               <Text style={styles.likedSongsText}>Songs</Text>
                  </Pressable>
                     
-                 <Pressable style={styles.likedSongs}>
-              <LinearGradient style={{borderRadius: 5,}} colors={['#33006F', '#c7d6cc']}>
-                <Pressable
-                  style={{
-                    width: 55,
-                    height: 55,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  < Fontisto name="podcast" color="white" size={24} />
-                </Pressable>
-              </LinearGradient>
-              <Text style={styles.likedSongsText}>Rock & Roll</Text>
-                    </Pressable>
-                    <Pressable style={styles.likedSongs}>
-              <LinearGradient style={{borderRadius: 5,}} colors={['#33006F', '#c7d6cc']}>
-                <Pressable
-                  style={{
-                    width: 55,
-                    height: 55,
-                    justifyContent: 'center',
-                     alignItems: 'center',
-                  }}>
-                  <MaterialIcons name="multitrack-audio" color="white" size={24} />
-                </Pressable>
-              </LinearGradient>
-              <Text style={styles.likedSongsText}>Caz</Text>
-            </Pressable>
-                </View>
+                 <Pressable style={styles.likedSongs}>    
+                <Image
+              source={{ uri: 'https://picsum.photos/201' }} 
+              style={styles.image}
+            />
+            <Text style={styles.likedSongsText}>Rock & Roll</Text>
+          </Pressable>
 
-                </ScrollView>
-        </LinearGradient>
-    );
+          <Pressable style={styles.likedSongs}>
+            
+                <Image
+                  source={{ uri: 'https://picsum.photos/202' }} // İnternetten resim yükleme
+                  style={styles.image}
+                />
+            <Text style={styles.likedSongsText}>Caz</Text>
+            </Pressable>
+            <Text style={styles.sectionTitle}>Your Top Artist</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {
+                artists?.map((artist, index) => (
+                  <ArtistCard key={index} artist={artist} />
+                ))
+             }
+            </ScrollView>
+          </View>
+          </ScrollView>
+      </LinearGradient>
+  );
 };
 
 export default HomeScreen;
@@ -141,24 +140,47 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    tabButtonText: {
-        color: 'white',
-        fontSize: 15,
-    },
+    tabButtonAll: {
+      backgroundColor: 'gray',
+      color:'#FFFFFF',
+      padding: 10,
+      borderRadius: 30,
+      justifyContent: 'center',
+      alignItems: 'center',
+  },
+  tabButtonText: {
+    color: 'white',
+    fontSize: 15,
+  },
     likedSongs: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 10,
-        borderRadius: 4,
-        marginHorizontal: 10,
-        marginVertical: 8,
-        backgroundColor: '#202020',
-        borderRadius: 5,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+      borderRadius: 4,
+      marginHorizontal: 10,
+      marginVertical: 8,
+      backgroundColor: '#202020',
+      borderRadius: 30,
 
+},
+image: {
+    width: 55,
+    height: 55,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
     },
       likedSongsText: {
         color: 'white',
         fontSize: 13,
         fontWeight: 'bold',
-    },
+  },
+  sectionTitle: {
+    color: 'white',
+    marginHorizontal: 10,
+    fontSize: 19,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+  
 });
