@@ -6,16 +6,27 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { ArtistContext } from '../context/ArtistContext';
 import ArtistCard from '../components/ArtistCard';
+import { AlbumContext } from '../context/AlbumContext';
+import AlbumCard from '../components/AlbumCard';
+import Error from '../components/Error';
+
+
 
 
 
 const HomeScreen = () => {
   const { artists, loading, error } = useContext(ArtistContext);
-  
+  const { albums, loading: albumsLoading, error: albumsError ,} = useContext(AlbumContext);
     return (
         <LinearGradient colors={['#040306', '#131624']} style={{ flex: 1 }}>
-          {/*<Loader /> */}
-        <ScrollView
+        {
+          albumsLoading ? (
+            <Loader />
+          ) : albumsError ?
+              (
+                <Error error={albumsError} />
+              ) : (
+              <ScrollView
                     style={{ marginTop: 50 }}
                     contentContainerStyle={{ paddingBottom: 100 }}>
                     <View style={styles.header}>
@@ -87,12 +98,22 @@ const HomeScreen = () => {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {
                 artists?.map((artist, index) => (
-                  <ArtistCard key={index} artist={artist} />
+                <ArtistCard key={index} artist={artist} />
+              ))}
+               </ScrollView>
+                    
+            <View style={{height: 10}} />
+            <Text style={styles.sectionTitle}>Popüler Albums</Text>
+            <ScrollView horizontal>
+              {
+                albums?.map((album, index) => (
+                  <AlbumCard key={index} album={album} />
                 ))
-             }
+              }
             </ScrollView>
           </View>
-          </ScrollView>
+        </ScrollView>
+          )}
       </LinearGradient>
   );
 };
