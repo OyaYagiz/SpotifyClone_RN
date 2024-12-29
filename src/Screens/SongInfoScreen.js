@@ -50,8 +50,8 @@ const SongInfoScreen = () => {
         <View>
           <View style={styles.infoWiew}>
             <View style={styles.infoContainer}>
-              <Text style={styles.infoText}>Album {name} </Text>
-              <Text style={styles.infoText}>Artist {artist} </Text>
+              <Text style={styles.infoText}>Album: {name} </Text>
+              <Text style={styles.infoText}>Artist: {artist} </Text>
               <Text style={styles.infoText}>Year: {year} </Text>
             </View>
             <Entypo name="dots-three-vertical" size={24} color="white" />

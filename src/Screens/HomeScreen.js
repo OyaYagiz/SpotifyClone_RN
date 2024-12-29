@@ -9,12 +9,15 @@ import ArtistCard from '../components/ArtistCard';
 import { AlbumContext } from '../context/AlbumContext';
 import AlbumCard from '../components/AlbumCard';
 import Error from '../components/Error';
+import { useNavigation } from '@react-navigation/native';
+
 
 
 
 
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
   const { artists, loading, error } = useContext(ArtistContext);
   const { albums, loading: albumsLoading, error: albumsError ,} = useContext(AlbumContext);
     return (
