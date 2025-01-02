@@ -22,3 +22,5 @@ A Spotify Clone project developed using React Native to replicate the core funct
 ```
 
 ```
+
+![](spotify.gif)
