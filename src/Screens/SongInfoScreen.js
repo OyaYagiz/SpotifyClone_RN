@@ -1,6 +1,6 @@
 import { useNavigation,useRoute } from '@react-navigation/native';
 import { ScrollView, StyleSheet, Text, View,TouchableOpacity, Image, Pressable,} from 'react-native'
-import { LinearGradient } from 'react-native-linear-gradient';
+import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';

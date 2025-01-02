@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import React, { useContext } from 'react';
-import LinearGradient from 'react-native-linear-gradient';
 import Loader from '../components/Loader';
+import LinearGradient from 'react-native-linear-gradient';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { ArtistContext } from '../context/ArtistContext';

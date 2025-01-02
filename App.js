@@ -8,10 +8,10 @@ const App = () => {
   return (
     <ProfileProvider>
       <ArtistProvider>
-      <AlbumsProvider>
-      <Routes />
-      </AlbumsProvider>
-    </ArtistProvider>
+        <AlbumsProvider>
+          <Routes />
+        </AlbumsProvider>
+      </ArtistProvider>
     </ProfileProvider>
   );
 };
